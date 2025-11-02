@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback Note - Easy PaCE</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://cdn.prod.website-files.com/68d828fa475631f2698f50be/68d99e0c7b9bfa48462f1e89_Favicon%20Logo.png">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://cdn.prod.website-files.com/68d828fa475631f2698f50be/68d99e0c7b9bfa48462f1e89_Favicon%20Logo.png" alt="Easy PaCE Logo">
+                <span>Easy PaCE</span>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <h1>Submit Your Feedback Note</h1>
+                <p class="form-subtitle">Fill out the form below and we'll draft your Feedback Note within 2-3 minutes.</p>
+                
+                <form id="fnForm" action="https://your-make-webhook-url.com" method="POST">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="your.email@forces.gc.ca" 
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rank">Rank *</label>
+                        <select id="rank" name="rank" required>
+                            <option value="">Select your rank</option>
+                            <option value="Pte">Pte / Avr / Gnr</option>
+                            <option value="Cpl">Cpl / LS / Bdr</option>
+                            <option value="MCpl">MCpl / MS</option>
+                            <option value="Sgt">Sgt / PO2</option>
+                            <option value="WO">WO / PO1</option>
+                            <option value="MWO">MWO / CPO2</option>
+                            <option value="CWO">CWO / CPO1</option>
+                            <option value="OCdt">OCdt / NCdt</option>
+                            <option value="2Lt">2Lt / ASLt</option>
+                            <option value="Lt">Lt / SLt</option>
+                            <option value="Capt">Capt / Lt(N)</option>
+                            <option value="Maj">Maj / LCdr</option>
+                            <option value="LCol">LCol / Cdr</option>
+                            <option value="Col">Col / Capt(N)</option>
+                            <option value="BGen">BGen / Cmdre</option>
+                            <option value="MGen">MGen / RAdm</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject Line (Optional)</label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            placeholder="e.g., FN for equipment coordination during inspection"
+                        >
+                        <small>This will be the title of your Feedback Note</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="narrative">Your Narrative *</label>
+                        <textarea 
+                            id="narrative" 
+                            name="narrative" 
+                            rows="10" 
+                            placeholder="Describe what happened, what you did, and what the result was. Write naturally - our AI will structure and polish it.&#10;&#10;Example: We had an inspection last Friday. I realized two new members were missing gear. I found an IC from another section, explained the situation, and got the items we needed. We passed the inspection with no issues."
+                            required
+                        ></textarea>
+                        <small class="char-count"><span id="charCount">0</span> characters</small>
+                    </div>
+                    
+                    <div class="form-tips">
+                        <h4>💡 Tips for a Strong Submission</h4>
+                        <ul>
+                            <li><strong>Situation:</strong> What was the problem or context?</li>
+                            <li><strong>Action:</strong> What did you do? Be specific.</li>
+                            <li><strong>Result:</strong> What was the outcome or impact?</li>
+                        </ul>
+                    </div>
+                    
+                    <button type="submit" class="submit-button" id="submitBtn">
+                        <span class="button-text">Submit for Drafting</span>
+                        <span class="button-loader" style="display: none;">
+                            <svg class="spinner" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" stroke-dasharray="32" stroke-dashoffset="32">
+                                    <animate attributeName="stroke-dashoffset" dur="1s" from="32" to="0" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                            Processing...
+                        </span>
+                    </button>
+                    
+                    <p class="form-footer">
+                        By submitting, you'll receive a confirmation email followed by your completed Feedback Note within 2-3 minutes.
+                    </p>
+                </form>
+                
+                <!-- Success Message (Hidden by default) -->
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Submission Received!</h3>
+                    <p>We've received your narrative and our AI is now drafting your Feedback Note.</p>
+                    <p><strong>You'll receive it within 2-3 minutes at:</strong><br><span id="submittedEmail"></span></p>
+                    <button onclick="location.reload()" class="secondary-button">Submit Another</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Easy PaCE</p>
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
